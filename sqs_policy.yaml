@@ -1,0 +1,29 @@
+{
+  "Version": "2008-10-17",
+  "Id": "__default_policy_ID",
+  "Statement": [
+    {
+      "Sid": "__owner_statement",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::785522309505:root"
+      },
+      "Action": "SQS:*",
+      "Resource": "arn:aws:sqs:us-east-1:785522309505:StandardQueue"
+    },
+    {
+      "Sid": "topic-subscription-arn:aws:sns:us-east-1:973567983713:sns-s2027892",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "*"
+      },
+      "Action": "SQS:SendMessage",
+      "Resource": "arn:aws:sqs:us-east-1:785522309505:StandardQueue",
+      "Condition": {
+        "ArnLike": {
+          "aws:SourceArn": "arn:aws:sns:us-east-1:785522309505:sns-s2027892"
+        }
+      }
+    }
+  ]
+}
