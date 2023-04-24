@@ -1,0 +1,28 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "AWS CloudFormation Template to create a DynamoDB table",
+    "Resources": {
+        "S2027892Table": {
+            "Type": "AWS::DynamoDB::Table",
+            "Properties": {
+                "TableName": "S2027892",
+                 "AttributeDefinitions" : [
+                  {
+                    "AttributeName" : "Audio_File_Name",
+                    "AttributeType" : "S"
+                  }
+                ],
+                "KeySchema" : [
+                  {
+                    "AttributeName" : "Audio_File_Name",
+                    "KeyType" : "HASH"
+                  }
+                ],
+                "ProvisionedThroughput": {
+                  "ReadCapacityUnits": 5,
+                  "WriteCapacityUnits": 5
+                }
+            }
+        }
+    }
+}
