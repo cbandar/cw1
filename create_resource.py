@@ -1,11 +1,12 @@
+# cw1 
+# student number s2027892
+
 import boto3
 
 def create_ec2_instance(instance_type, key_name):
-  # Create EC2 Instance
+  #init ec2
   ec2 = boto3.resource('ec2')
   instances = ec2.create_instances(
-    # Ubuntu - ami-052efd3df9dad4825
-    # ami-08e4e35cccc6189f4
     ImageId='ami-02396cdd13e9a1257',
     MinCount=1,
     MaxCount=1,
@@ -16,35 +17,35 @@ def create_ec2_instance(instance_type, key_name):
     }
   )
 
-  # Validate EC2 Instance
+  #validate ec2
   if instances:
-    print('EC2 Instance % s created' % instances[0].id)
+    print('ec2 % s created' % instances[0].id)
   return
 
 def create_sns_topic(topic_name):
-  # Create SNS Topic
+  #init sns
   sns = boto3.resource('sns')
   topic = sns.create_topic(Name=topic_name)
 
-  # Validate SNS Topic
+  #validate sns
   if topic:
     print('SNS Topic % s created' % topic_name)
   return
 
 def create_bucket(bucket_name, region_name):
-  #  Create S3 Bucket
+  #init s3 bucket
   session = boto3.Session(region_name=region_name)
   s3_client = session.client('s3')
   s3_client.create_bucket(Bucket=bucket_name)
-
-  # Validate S3 Bucket
+  
+  #validate s3 bucket
   buckets_list = s3_client.list_buckets()
   for bucket in buckets_list['Buckets']:
     if bucket['Name'] == 'bucket-s2027892':
-      print('S3 Bucket created')
+      print('bucket created')
       break
     else:
-      print('S3 Bucket not created')
+      print('bucket not created')
       break
   return
 
