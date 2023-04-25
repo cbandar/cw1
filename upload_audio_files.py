@@ -4,14 +4,14 @@ import boto3
 import logging
 from botocore.exceptions import ClientError
 
-# logger config.
+#logger config.
 logger = logging.getLogger()
 logging.basicConfig(
   level=logging.INFO,
   format='%(asctime)s: %(levelname)s: %(message)s'
 )
 
-# upload to S3 bucket with a 30 second delay between uploads.
+# upload to s3. 30 sec delay between uploads
 def upload_audio_files(dir):
   session = boto3.Session()
   s3 = session.resource('s3')
@@ -33,21 +33,5 @@ def upload_audio_files(dir):
         )
         print(message_id)
         time.sleep(30)
-
-def publish_message(topic_arn, message, subject):
-    # Publishes a message to a topic.
-    try:
-      sns = boto3.client('sns', region_name='us-east-1')
-      response = sns.publish(
-          TopicArn=topic_arn,
-          Message=str(message),
-          Subject=subject,
-      )['MessageId']
-
-    except ClientError:
-        logger.exception('ERROR: Couldn\'t publish message to the topic.')
-        raise
-    else:
-        return response
 
 upload_audio_files('audio files')
