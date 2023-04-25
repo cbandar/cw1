@@ -31,7 +31,7 @@ def lambda_handler(event, context):
   s3 = boto3.resource('s3')
   table = boto3.resource('dynamodb').Table('S2027892_Audio_Data')
 
-  # Check the DynamoDB table is populated with all image data
+  # check the DynamoDB table is populated
   if len(table.scan()['Items']) == len(s3.Bucket('s2027892').objects.all()):
     print('All audio files have been uploaded to S3!')
 
@@ -42,7 +42,7 @@ def lambda_handler(event, context):
     event_body = event['Records'][0]['body']
     if event_body not in results:
 
-      send_sms(event_body)
+      send_email(event_body)
       print('Email sent!' + '\n' + str(event_body) + ' test' + '\n')
     else:
           print(str(event_body) + ' test2' + '\n')
